@@ -1,0 +1,9 @@
+## YAML Template.
+---
+blog_index:
+    pattern:  /
+    defaults: { _controller: MyBlogBundle:Default:index }
+
+blog_view:
+    pattern:  /{id}
+    defaults: { _controller: MyBlogBundle:Default:view }

@@ -8,12 +8,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/hello/{name}")
-     * @Template()
-     */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        $em = $this->get('doctrine')->getEntityManager();
+        $posts = $em->getRepository('MyBlogBundle:Post')->findAll();
+        return $this->render('MyBlogBundle:Default:index.html.twig', array('posts' => $posts));
+    }
+
+    public function viewAction($id)
+    {
+        $em = $this->get('doctrine')->getEntityManager();
+        $post = $em->find('MyBlogBundle:Post', $id);
+        return $this->render('MyBlogBundle:Default:view.html.twig', array('post' => $post));
     }
 }
